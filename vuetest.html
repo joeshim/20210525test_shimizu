@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="todo__list">
+      <h2>TODOアプリ</h2>
+      <div class="input__area">
+        <div class="input__list">
+          タスク名：<input type="text" v-model="addTask">
+        </div>
+        <div class="input__list">
+          推定時間（分）：<input type="text" v-model="addTime">
+        </div>
+      </div>
+      <button v-on:click="addTodo">追加</button>
+
+      <table>
+        <tr>
+          <th>タスク</th>
+          <th>推定時間（分）</th>
+        </tr>
+        <tr v-for="todo in todos">
+          <td>{{todo.task}}</td>
+          <td>{{todo.time}}分</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        todos: [],
+        addTask:'',
+        addTime:''
+      },
+      methods: {
+        addTodo: function(){
+          if (this.addTask == '') return;
+          else if (this.addTime == '') return;
+          this.todos.push({task: this.addTask, time: this.addTime})
+          this.addTask = '';
+          this.addTime = '';
+        }
+      }
+      });
+
+  </script>
+  <style>
+    .todo__list {
+      margin-top: 50px;
+      margin-left: 50px;
+    }
+    .input__area {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .input__list {
+      margin-right: 20px;
+    }
+    
+    table {
+      margin-top: 20px;
+      table-layout: fixed;
+      width: 600px;
+      text-align: left;
+      border-collapse: collapse;
+    }
+    table th {
+      font-weight: 800;
+      border-bottom: 1px solid grey;
+    }
+    table td {
+      word-wrap: break-word;
+    }
+
+  </style>
+</body>
+</html>
